@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type = "text/css">
+            #titlecolor{
+                background-color:#ee824e; 
+                height: 280px;
+                width: 100%;
+            }
+
+            #photo{ /*切成圓形 -> 大小100px -> 邊緣*/
+                border-radius:50%; 
+                overflow:hidden;
+                
+                width: 180px;
+                height: 180px;
+
+                margin-top: 10px;
+                margin-bottom: 0px;
+            }
+
+            .center{  /*置中*/
+                line-height: 12px;
+                text-align: center;
+            }
+            .vertical-mode { /*直立*/
+                writing-mode: tb-rl;
+                -webkit-writing-mode: vertical-rl;      
+                writing-mode: vertical-rl;
+            }
+            .workExp{ 
+                margin-left:auto; /*置中*/
+                margin-right:auto;
+
+                border-top:3px #000000 solid;/*上下線*/
+
+                margin-top: 5px;
+
+                padding:20px;
+                border:'0';
+            }
+            table{
+                margin-left: 10%;
+                text-align:left;
+                padding:30px;
+            }
+            th{
+                font-size: 25px;
+                text-align: center;
+                margin-left: 2px;
+            }
+            td :nth-child(odd){
+                
+                color:#ffffff;
+            }
+            
+            td{
+                font-size: 20px;
+                text-align: center;
+            }
+            tr:nth-child(odd){
+	            background-color:#ee824e;
+                color:#ffffff;
+            }
+            tr:nth-child(even){
+	            background-color:#ffffff;
+                color:#000000;
+            }
+
+            #titlecolor h1, h2{
+                color:white;
+            }
+
+            #titlecolor h4{
+                color:black;
+            }
+
+        </style>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <script>
+            function showComplete()
+            {
+                document.getElementById("choose").setAttribute("style", "display:none;");
+                document.getElementById("button").setAttribute("style", "display:none;");
+                window.alert("若要重選照片，請按F5");
+                window.alert('若要儲存為PDF檔，可按"ctrl+p"，並將目的地改為"另存為PDF"，接著按儲存即可!');
+                document.getElementById("top").setAttribute("href", "#");
+            }
+            $(document).ready(function () {
+                var sheetID = "1v6dStbv2FnNtbg82dQzJ7TEQMeel77JxgK6Hd7X29OQ"; // 試算表代號
+                var gid = "1132541686"; // 工作表代號
+                var callback = "display"; // 回呼函數名稱
+                var url = "https://spreadsheets.google.com/tq?tqx=responseHandler:" + callback  + "&key=" + sheetID + "&gid=" + gid;
+                console.log(url);
+
+                $.getScript(url); //取回Google Spreadsheet API回傳之JS code並執行
+
+            });
+
+        function display(resultJson) {
+
+            console.log(resultJson); //印出回傳結果，可仔細觀察一下Google試算表回傳之JSON內容
+            var rowArray = resultJson.table.rows;
+            var rowLength = rowArray.length; //最後一筆
+
+            var dataGroup = rowArray[rowLength - 1].c;
+
+            console.log(dataGroup);
+
+            var userCname = document.getElementById("userCname");
+            userCname.innerHTML = dataGroup[1].v;
+
+            var userEname = document.getElementById("userEname");
+            userEname.innerHTML = dataGroup[2].v;
+
+            var phoneNumber = document.getElementById("phoneNumber");
+            phoneNumber.innerHTML = dataGroup[3].v;
+
+            var address = document.getElementById("address");
+            address.innerHTML += dataGroup[4].v;
+
+            var github = document.getElementById("github");
+            github.setAttribute('href',dataGroup[5].v);
+
+            var email = document.getElementById("email");
+            email.setAttribute('href',dataGroup[6].v);
+
+            var workStore;
+            var work1 = document.getElementById("work1");
+            if (dataGroup[7].v) {
+                workStore = dataGroup[7].v.split(",");
+                var rowspanlength = workStore.length/3;
+                var content = '<tr><th id = "work" rowspan = "4" style="height:200px" width = 20%><span >Work experience</span></th><th>Company / Job title</th><th>On period</th><th>Job description</th></tr>';
+                for (var j = 0; j<rowspanlength ;j++)
+                {
+                    content += "<tr>";
+                    content += "<td>" + workStore[0+j*3] + "</td>";
+                    content += "<td>" + workStore[1+j*3] + "</td>";
+                    content += "<td>" + workStore[2+j*3] + "</td>";
+                    content += "</tr>";
+                }
+            }
+            work1.innerHTML = content;
+            var education = document.getElementById("work");
+            education.setAttribute('rowspan',1+rowspanlength);
+
+            
+            var programming = dataGroup[8].v.split(",");
+            var developmentTools = dataGroup[9].v.split(",");
+            var length ;
+            if (programming.length > developmentTools.length) length = programming.length;
+            else length = developmentTools.length;
+
+            var content = '<tr><th id = "Ability1" rowspan = "6" style="height:250px" width = 20%><span >Skills</span></th><th>Programming</th><th>Development tools</th></tr>';
+            var count = 1;
+            for (var i = 0; i<length;i++)
+            {
+                content += '<tr>';
+                if (programming[i])
+                {
+                    content += '<td>' + programming[i] +'</td>';
+                }
+                else
+                {
+                    content += '<td>' + ' ' +'</td>';
+                }
+
+                if (developmentTools[i])
+                {
+                    content += '<td>' + developmentTools[i] +'</td>';
+                }
+                else
+                {
+                    content += '<td>' + ' ' +'</td>';
+                }
+                content += '</tr>';
+
+                count++;
+                
+            }
+
+            var ability = document.getElementById("Ability");
+            ability.innerHTML = content;
+
+            var ability1 = document.getElementById("Ability1");
+            ability1.setAttribute('rowspan',count);
+        } 
+        </script>
+
+    </head>
+    <body>
+        <div id = 'titlecolor'> <!--將div區塊設置顏色-->
+            <div class = 'center'><!--大頭照-->
+                <input type='file' id="choose"/><img id="photo" src="head.png"/>
+                <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+                <script>
+                    $('input').on('change', function(e){      
+                        const file = this.files[0];
+                        const fr = new FileReader();
+                        fr.onload = function (e) {
+                            $('#photo').attr('src', e.target.result);
+                        };
+
+                            // 使用 readAsDataURL 將圖片轉成 Base64
+                        fr.readAsDataURL(file);
+                    });
+                </script>
+                <h1 id = 'userCname'></h1>
+                <h2 id = 'userEname' style="margin-bottom: 10px;"></h2>
+            </div>
+        </div> 
+
+            
+        <div id = 'titlecolor2'>
+            <div class = 'center'>
+                <h4 id = 'phoneNumber'></h4>
+                <h4 id = 'address'>
+                    <img src="country.png" width="20" height="20">
+                </h4>
+
+                <a id = 'github' href = "https://github.com" style = "text-decoration:none;" target = "_blank">
+                    <img src="github.png" width="25" height="25">
+                </a>
+                
+                <a  id = 'email' href = "mailto:deitel@deitel.com"  target = "_blank">
+                    <img src="email.png" width="25" height="25">
+                </a>
+
+            </div>
+        </div>
+
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead  id = 'work1'>
+                </thead>
+            </table>
+        </div>
+
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead id = 'Ability'>
+                    
+                </thead>
+            </table>
+        </div>
+        <a id="top"><input type="button" id="button" value="View" onclick="showComplete()"></a>
+    </body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type = "text/css">
+            #titlecolor{
+                background-color:#d3e9ee; 
+                height: 375px;
+                width: 100%;
+            }
+
+            #photo{ /*切成圓形 -> 大小100px -> 邊緣*/
+                border-radius:50%; 
+                overflow:hidden;
+                
+                width: 150px;
+                height:150px;
+
+                margin-top: 10px;
+                margin-bottom: 0px;
+            }
+            .center{  /*置中*/
+                line-height: 12px;
+                text-align: center;
+            }
+            .vertical-mode { /*直立*/
+                writing-mode: tb-rl;
+                -webkit-writing-mode: vertical-rl;      
+                writing-mode: vertical-rl;
+            }
+            .workExp{ 
+                margin-left:auto; /*置中*/
+                margin-right:auto;
+
+                border-top:3px #000000 solid;/*上下線*/
+                border-bottom:3px #d3e9ee solid;
+
+                margin-top: 5px;
+
+                padding:20px;
+                border:'0';
+            }
+            table{
+                margin-left: 10%;
+                text-align:left;
+                padding:30px;
+            }
+            th{
+                font-size: 25px;
+                text-align: center;
+                margin-left: 2px;
+            }
+            td{
+                font-size: 20px;
+                text-align: center;
+                color:#495052;
+            }
+            tr:nth-child(odd){
+	            background-color:#d3e9ee;
+            }
+        </style>
+
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+
+        <script>
+            function showComplete()
+            {
+                document.getElementById("choose").setAttribute("style", "display:none;");
+                document.getElementById("button").setAttribute("style", "display:none;");
+                window.alert("若要重選照片，請按F5");
+                window.alert('若要儲存為PDF檔，可按"ctrl+p"，並將目的地改為"另存為PDF"，接著按儲存即可!');
+                document.getElementById("top").setAttribute("href", "#");
+            }
+        $(document).ready(function () {
+            var sheetID = "1m2CCjPnpBo13576Hwy1xC8UgsebMDxATTYPkm5x6K5Q"; // 試算表代號
+            var gid = "1908344310"; // 工作表代號
+            var callback = "display"; // 回呼函數名稱
+            var url = "https://spreadsheets.google.com/tq?tqx=responseHandler:" + callback  + "&key=" + sheetID + "&gid=" + gid;
+            console.log(url);
+
+            $.getScript(url); //取回Google Spreadsheet API回傳之JS code並執行
+
+        });
+
+        function display(resultJson) {
+
+            console.log(resultJson); //印出回傳結果，可仔細觀察一下Google試算表回傳之JSON內容
+            var rowArray = resultJson.table.rows;
+            var rowLength = rowArray.length; //最後一筆
+
+            var dataGroup = rowArray[rowLength - 1].c;
+
+            console.log(dataGroup);
+
+            var userCname = document.getElementById("userCname");
+            userCname.innerHTML = dataGroup[1].v;
+
+            var userEname = document.getElementById("userEname");
+            userEname.innerHTML = dataGroup[2].v;
+
+            var phoneNumber = document.getElementById("phoneNumber");
+            phoneNumber.innerHTML = dataGroup[3].v;
+
+            var address = document.getElementById("address");
+            address.innerHTML += dataGroup[4].v;
+
+            var github = document.getElementById("github");
+            github.setAttribute('href',dataGroup[5].v);
+
+            var email = document.getElementById("email");
+            email.setAttribute('href',dataGroup[6].v);
+
+            var EducationStore;
+            var Education = document.getElementById("Education");
+            EducationStore = dataGroup[7].v.split(",");
+            for (var i = 0; i < EducationStore.length; i++)
+            {
+                Education.innerHTML += "<li>" + EducationStore[i] + "</li>";
+            }
+
+            var programmingStore;
+            var programming = document.getElementById("programming");
+            programmingStore = dataGroup[8].v.split(",");
+            for (var i = 0; i < programmingStore.length; i++)
+            {
+                programming.innerHTML += "<li>" + programmingStore[i] + "</li>";
+            }
+            
+            var languageStore;
+            var language = document.getElementById("language");
+            languageStore = dataGroup[9].v.split(",");
+            for (var i = 0; i < languageStore.length; i++)
+            {
+                language.innerHTML += "<li>" + languageStore[i] + "</li>";
+            }
+
+            var count = 4;
+            var workStore;
+            var work1 = document.getElementById("work1");
+            if (dataGroup[10].v) {
+                workStore = dataGroup[10].v.split(",");
+                for (var i = 0; i < workStore.length; i++)
+                {
+                    work1.innerHTML += "<td>" + workStore[i] + "</td>";
+                    count++;
+                }
+            }
+
+            var workStore2;
+            var work2 = document.getElementById("work2");
+            if (dataGroup[11].v) {
+                workStore2 = dataGroup[11].v.split(",");
+                for (var i = 0; i < workStore.length; i++)
+                {
+                    work2.innerHTML += "<td>" + workStore2[i] + "</td>";
+                    count++;
+                }
+            }
+
+            var workStore3;
+            var work3 = document.getElementById("work3");
+            if (dataGroup[12].v) {
+                workStore3 = dataGroup[12].v.split(",");
+                for (var i = 0; i < workStore3.length; i++)
+                {
+                    work3.innerHTML += "<td>" + workStore3[i] + "</td>";
+                    count++;
+                }
+            }
+            var work = document.getElementById("work");
+            work.setAttribute('rowspan',count/4);
+        };
+        </script>
+    </head>
+    <body>
+        
+        <div id = 'titlecolor'> <!--將div區塊設置顏色-->
+            <div class = 'center'><!--大頭照-->
+                <input type='file' id="choose"/><img id="photo" src="head.png"/>
+                <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+                <script>
+                    $('input').on('change', function(e){      
+                        const file = this.files[0];
+                        const fr = new FileReader();
+                        fr.onload = function (e) {
+                            $('#photo').attr('src', e.target.result);
+                        };
+
+                            // 使用 readAsDataURL 將圖片轉成 Base64
+                        fr.readAsDataURL(file);
+                    });
+                </script>
+                <h1 id = 'userCname'>  </h1>
+                <h2 id = 'userEname'>  </h2>
+
+                <h4 id = 'phoneNumber'>  </h4>
+
+                <h4 id = 'address'>
+                    <img src="country.png" width="20" height="20">
+                    
+                </h4>
+
+                <a id = 'github' href = "https://github.com" style = "text-decoration:none;" target = "_blank">
+                    <img src="github.png" width="25" height="25">
+                </a>
+                
+                <a id = 'email' href = "mailto:deitel@deitel.com"  target = "_blank">
+                    <img src="email.png" width="25" height="25">
+                </a>
+            </div>
+        </div> 
+        
+        <div>
+            <table width="80%" class='skill' id = 'hi'>
+            <thead>
+                <tr>
+                    <th >學歷</th>
+                    <td> 
+                        <ul>
+                            <li id = 'Education'> </li>
+                        </ul>
+                    </td>
+
+                </tr>
+            </thead>
+                <tr>
+                    <th>程式語言</th>
+                    <td> 
+                        <ul>
+                            <li id = 'programming'> </li>
+                        </ul>
+                    </td>
+                </tr>
+            <tbody>
+                <tr>
+                    <th>語言能力</th>
+                    <td> 
+                        <ul>
+                            <li id = 'language'> </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead>
+                    <tr>
+                        <th id = "work" rowspan = "4" style="height:150px"><span class="vertical-mode">工作經歷</span></th>
+                        <th>公司名稱</th>
+                        <th>工作職稱</th>
+                        <th>工作期間</th>
+                        <th>工作內容</th>
+                    </tr>
+                    <tr id = "work1">
+                        
+                    </tr>
+                    <tr id = "work2">
+                        
+                    </tr>
+                    <tr id = "work3">
+                        
+                    </tr>
+                </thead>
+            </table>
+            <table>
+                <tbody id="test"></tbody>
+            </table>
+            <a id="top"><input type="button" id="button" value="瀏覽" onclick="showComplete()"></a>
+    </body>
+</html>

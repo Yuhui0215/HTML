@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type = "text/css">
+            #titlecolor{
+                background-color:#f6f2ef; 
+                height: 400px;
+                width: 100%;
+            }
+
+            #photo{ /*切成圓邊 -> 大小100px -> 邊緣*/
+                border-radius:10px; 
+                overflow:hidden;
+                
+                width: 200px;
+                height:200px;
+
+                margin-top: 30px;
+                margin-right: 100px;
+
+                border-color: #a5593c;
+            }
+            .vertical-mode { /*直立*/
+                writing-mode: tb-rl;
+                -webkit-writing-mode: vertical-rl;      
+                writing-mode: vertical-rl;
+            }
+            .workExp{ 
+                margin-left:auto; /*置中*/
+                margin-right:auto;
+
+                border-bottom:3px #f6f2ef solid;/*上下線*/
+                border-top:3px #a5593c solid;
+
+                margin-top: 5px;
+
+                padding:20px;
+                border:'0';
+            }
+            table{
+                padding:30px;
+                margin-left:auto; 
+                margin-right:auto;
+            }
+            th{
+                font-size: 25px;
+                text-align: center;
+                margin-left: 2px;
+            }
+            td{
+                font-size: 20px;
+                text-align: center;
+                color:#495052;
+            }
+        </style>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+
+        <script>
+            function showComplete()
+            {
+                document.getElementById("choose").setAttribute("style", "display:none;");
+                document.getElementById("button").setAttribute("style", "display:none;");
+                window.alert("若要重選照片，請按F5");
+                window.alert('若要儲存為PDF檔，可按"ctrl+p"，並將目的地改為"另存為PDF"，接著按儲存即可!');
+                document.getElementById("top").setAttribute("href", "#");
+            }
+        $(document).ready(function () {
+            var sheetID = "1ggXb9Q07dtsv-2DPhtF1JINFtcrYMBLhA5MZ_jFVYYg"; // 試算表代號
+            var gid = "1443421853"; // 工作表代號
+            var callback = "display"; // 回呼函數名稱
+            var url = "https://spreadsheets.google.com/tq?tqx=responseHandler:" + callback  + "&key=" + sheetID + "&gid=" + gid;
+            console.log(url);
+
+            $.getScript(url); //取回Google Spreadsheet API回傳之JS code並執行
+
+        });
+
+        function display(resultJson) {
+
+            console.log(resultJson); //印出回傳結果，可仔細觀察一下Google試算表回傳之JSON內容
+            var rowArray = resultJson.table.rows;
+            var rowLength = rowArray.length; //最後一筆
+
+            var dataGroup = rowArray[rowLength - 1].c;
+
+            console.log(dataGroup);
+
+            var userCname = document.getElementById("userCname");
+            userCname.innerHTML = dataGroup[1].v;
+
+            var userEname = document.getElementById("userEname");
+            userEname.innerHTML = dataGroup[2].v;
+
+            var phoneNumber = document.getElementById("phoneNumber");
+            phoneNumber.innerHTML = dataGroup[3].v;
+
+            var address = document.getElementById("address");
+            address.innerHTML += dataGroup[4].v;
+
+            var github = document.getElementById("github");
+            github.setAttribute('href',dataGroup[5].v);
+
+            var email = document.getElementById("email");
+            email.setAttribute('href',dataGroup[6].v);
+
+            
+            var educationStore;
+            var education1 = document.getElementById("Education1");
+            if (dataGroup[7].v) {
+                educationStore = dataGroup[7].v.split(",");
+                var rowspanlength = educationStore.length/4;
+                var content = '<tr><th id = "Education" rowspan = "4" style="height:150px" width=20%><span>Education</span></th><th>Stage</th><th>School</th><th>Time of Enrollment</th><th>Date of graduation</th></tr>';
+                for (var j = 0; j<rowspanlength ;j++)
+                {
+                    content += "<tr>";
+                    content += "<td>" + educationStore[0+j*4] + "</td>";
+                    content += "<td>" + educationStore[1+j*4] + "</td>";
+                    content += "<td>" + educationStore[2+j*4] + "</td>";
+                    content += "<td>" + educationStore[3+j*4] + "</td>";
+                    content += "</tr>";
+                }
+            }
+            education1.innerHTML = content;
+            var education = document.getElementById("Education");
+            education.setAttribute('rowspan',1+rowspanlength);
+
+
+
+            var workStore;
+            var work1 = document.getElementById("work1");
+            if (dataGroup[8].v) {
+                workStore = dataGroup[8].v.split(",");
+                var rowspanlength = workStore.length/3;
+                var content = '<tr><th id = "work" rowspan = "4" style="height:200px" width = 20%><span >Work experience</span></th><th>Company / Job title</th><th>On period</th><th>Job description</th></tr>';
+                for (var j = 0; j<rowspanlength ;j++)
+                {
+                    content += "<tr>";
+                    content += "<td>" + workStore[0+j*3] + "</td>";
+                    content += "<td>" + workStore[1+j*3] + "</td>";
+                    content += "<td>" + workStore[2+j*3] + "</td>";
+                    content += "</tr>";
+                }
+            }
+            work1.innerHTML = content;
+            var education = document.getElementById("work");
+            education.setAttribute('rowspan',1+rowspanlength);
+
+
+
+            
+            var programming = dataGroup[9].v.split(",");
+            var developmentTools = dataGroup[10].v.split(",");
+            var length ;
+            if (programming.length > developmentTools.length) length = programming.length;
+            else length = developmentTools.length;
+
+            var content = '<tr><th id = "Ability1" rowspan = "6" style="height:250px" width = 20%><span>Skills</span></th><th>Programming</th><th>Development tools</th></tr>';
+            var count = 1;
+            for (var i = 0; i<length;i++)
+            {
+                content += '<tr>';
+                if (programming[i])
+                {
+                    content += '<td>' + programming[i] +'</td>';
+                }
+                else
+                {
+                    content += '<td>' + ' ' +'</td>';
+                }
+
+                if (developmentTools[i])
+                {
+                    content += '<td>' + developmentTools[i] +'</td>';
+                }
+                else
+                {
+                    content += '<td>' + ' ' +'</td>';
+                }
+                content += '</tr>';
+
+                count++;
+                
+            }
+
+            var ability = document.getElementById("Ability");
+            ability.innerHTML = content;
+
+            var ability1 = document.getElementById("Ability1");
+            ability1.setAttribute('rowspan',count);
+        };
+            
+          </script>
+    </head>
+    <body>
+        <div id = 'titlecolor'> <!--將div區塊設置顏色-->
+            <table width="60%">
+                <thead>
+                    <tr>
+                        <td>
+                            <input type='file' id="choose"/><img id="photo" src="head.png"/><!--大頭照-->
+                            <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+                            <script>
+                                $('input').on('change', function(e){      
+                                    const file = this.files[0];
+                                    const fr = new FileReader();
+                                    fr.onload = function (e) {
+                                        $('#photo').attr('src', e.target.result);
+                                    };
+                                    // 使用 readAsDataURL 將圖片轉成 Base64
+                                    fr.readAsDataURL(file);
+                                });
+                            </script>
+                        </td>
+                        <td width = 60%>
+                            <h1 id = 'userCname'>  </h1>
+                            <h2 id = 'userEname'>  </h2>
+                            <h4 id = 'phoneNumber'>  </h4>
+
+                            <h4 id = 'address'>
+                                <img src="country.png" width="20" height="20">
+                            </h4>
+
+                            <a id = 'github' href = "https://github.com" style = "text-decoration:none;" target = "_blank">
+                                <img src="github.png" width="25" height="25">
+                            </a>
+                            
+                            <a id = 'email' href = "mailto:deitel@deitel.com"  target = "_blank">
+                                <img src="email.png" width="25" height="25">
+                            </a>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+        
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead  id = 'Education1'>
+                </thead>
+            </table>
+        </div>
+
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead id = 'work1'>
+                </thead>
+            </table>
+        </div>
+
+        <div>
+            <table width="80%" class = 'workExp'>
+                <thead id = 'Ability'>
+                </thead>
+            </table>
+        </div>
+        <a id="top"><input type="button" id="button" value="View" onclick="showComplete()"></a>
+    </body>
+</html>
