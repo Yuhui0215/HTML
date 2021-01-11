@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type = "text/css">
+            @import url("https://fonts.googleapis.com/earlyaccess/cwtexyen.css");
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+            }
+
+            #bg {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                background-position: center center;
+                background-size: cover;
+                opacity: 0.5; 
+                z-index: 0;
+            }
+
+            #all {
+                text-align: center;
+                font-family: Microsoft JhengHei;
+                position: relative;
+                top: -100%;
+            }
+
+            #head {
+                font-size: 60px;
+                font-weight: 600;
+                position: relative;
+                top: -100%;
+            }
+
+            #content {
+                color: rgb(58, 58, 58);
+                font-size: 28px;
+                position: relative;
+                top: 10%;
+            }
+
+            .bgc:hover {
+                background-color: white;
+                color: black;
+                font-weight: 700;
+            }
+
+            #tips {
+                position: relative;
+                bottom: 0%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <img src="interview.jpg" id="bg">
+        <div id="all">
+            <div id="head">
+                <p>使用說明</p>
+            </div>
+            <div id="content">
+                <p class="bgc">按下「開始創造履歷表」</p>
+                <p class="bgc">選擇喜歡的樣式，並依照需求在下方按鈕選取中文版或英文版履歷表</p>
+                <p class="bgc">按下「填寫資料」，依循表單指引完成資料輸入</p>
+                <p class="bgc">完成後回到上一頁，按下「顯示結果」確認資料無誤</p>
+                <p class="bgc">最後上傳大頭照，並按下頁面左下方的「瀏覽」按鈕，便可瀏覽完整履歷表</p>
+            </div>
+            <div id="tips">
+                <br>
+                <br>
+                <p style="font-size: 23px; font-weight: bolder;">小提示</p>
+                <p>資料輸入錯誤請重新填寫表單</p>
+                <p>完成後若要儲存為PDF檔，可按"ctrl+p"，並將目的地改為"另存為PDF"，接著按儲存即可!</p>
+            </div>
+        </div>
+    </body>
+</html>
