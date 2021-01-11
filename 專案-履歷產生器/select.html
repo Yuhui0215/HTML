@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type = "text/css">
+            @import url("https://fonts.googleapis.com/earlyaccess/cwtexyen.css");
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+            }
+
+            #bg {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                background-position: center center;
+                background-size: cover;
+                opacity: 0.5; 
+                z-index: 0;
+            }
+
+            #t1 {
+                width: auto;
+                height: 500px;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            #t1:hover {
+                width: auto;
+                height: 120%;
+                position: absolute;
+                left: 5%;
+                top: 5%;
+                z-index: 5;
+            }
+
+            #t2 {
+                width: auto;
+                height: 500px;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            #t2:hover {
+                width: auto;
+                height: 120%;
+                position: absolute;
+                right: 13%;
+                top: 5%;
+                z-index: 5;
+            }
+
+            #t3 {
+                width: auto;
+                height: 500px;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            #t3:hover {
+                width: auto;
+                height: 120%;
+                position: absolute;
+                right: 5%;
+                top: 5%;
+                z-index: 5;
+            }
+
+            #all {
+                text-align: center;
+                position: relative;
+                top: -1000px;
+                z-index: 5;
+            }
+
+            table {                     
+                width: 1780px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            td {
+                text-align: center;
+                width: 500px;
+            }
+            
+
+            #head {
+                font-size: 50px;
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            input {
+                width: 70px;
+                height: 35px;
+                border:0;
+                background-color:#002a6e;
+                color:#fff;
+                border-radius:10px;
+                cursor:pointer;
+            }
+
+            input:hover {
+                color:#011b46;
+                background-color:#fff;
+                border:2px #003C9D solid;
+            }
+
+        </style>
+    </head>
+    <body>
+        <img src="interview.jpg" id="bg">
+        <div id="all">
+            <table>
+                <thead><p id="head"><br>履歷表排版選擇</p></thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div> <!-- class="form"-->
+                                <img id="t1" src="R1.png">
+                                <a href="按鈕1.html" target=_blank><input type="button" value="中文"></a>
+                                <a href="Button1.html" target=_blank><input type="button" value="English"></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img id="t2" src="R2.png">
+                                <a href="按鈕2.html" target=_blank><input type="button" value="中文"></a>
+                                <a href="Button2.html" target=_blank><input type="button" value="English"></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img id="t3" src="R3.png">
+                                <a href="按鈕3.html" target=_blank><input type="button" value="中文"></a>
+                                <a href="Button3.html" target=_blank><input type="button" value="English"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
