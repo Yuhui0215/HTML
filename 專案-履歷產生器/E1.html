@@ -77,7 +77,7 @@
             var sheetID = "1m2CCjPnpBo13576Hwy1xC8UgsebMDxATTYPkm5x6K5Q"; // 試算表代號
             var gid = "1908344310"; // 工作表代號
             var callback = "display"; // 回呼函數名稱
-            var url = "//spreadsheets.google.com/tq?tqx=responseHandler:" + callback  + "&key=" + sheetID + "&gid=" + gid;
+            var url = "http://spreadsheets.google.com/tq?tqx=responseHandler:" + callback  + "&key=" + sheetID + "&gid=" + gid;
             console.log(url);
 
             $.getScript(url); //取回Google Spreadsheet API回傳之JS code並執行
