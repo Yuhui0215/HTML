@@ -9,48 +9,119 @@
             }
             body {
                 background-color:rgb(255, 255, 131) ;
-                
             }
             #name {
                font-size: 50px;
                font-weight: 700;
                text-align: center;
+               margin-bottom: 10px;
+               margin-top: 40px;
             } 
+            #search {
+                width: 25%;
+                margin-bottom: 40px;
+                margin-left: 20px;
+            }
+            #searchName {
+                font-size: 25px;
+                font-weight: 700;
+                margin: 0;
+            }
+            #searchLabel {
+                align-items: center;
+            }
+            #inputText {
+                width: 97%;
+                height: 40px;
+                font-size: 150%;
+            }
+            #searchBtn {
+                width: 100%;
+                height: 40px;
+                font-size: 150%;
+            }
+           
             #buttons {
                 width: 20%;
                 margin-left: 25px;
             }
-            #more, #all, #male, #female, #MaleFemale, #males, #females {
+            #all, #male, #female, #maleFemale, #males, #females, #adder {
                 width: 90%;
-                font-size: 25px;
+                height: 70px;
+                font-size: 150%;
                 font-weight: 800;
-                margin-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            #all {
+                background-color: rgb(10, 3, 73);
+                color: white;
             }
         </style>
         <script type="text/javascript">
-        
-        
+            document.getElementById("all").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/Granny's%20music%20player.html";
+            };
+            document.getElementById("male").onclick = function () {
+                window.location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/male.html";
+            };
+            document.getElementById("female").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/female.html";
+            };
+            document.getElementById("maleFemale").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/MaleFemale.html";
+            };
+            document.getElementById("males").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/males.html";
+            };
+            document.getElementById("females").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/females.html";
+            };
+            document.getElementById("adder").onclick = function () {
+                location.href = "https://yuhui0215.github.io/HTML/Granny's%20music%20player/Granny's%20music%20player.html";
+            };
         </script>
     </head>
     
     <body>
         <div>
             <p id="name">阿嬤的音樂播放器</p>
-            <div id="buttons">
-                <button id="more">點我新增歌曲</button>
-                <button id="all">全部歌曲</button>
-                <button id="male">男歌手</button>
-                <button id="female">女歌手</button>
-                <button id="MaleFemale">男女合唱</button>
-                <button id="males">男男合唱</button>
-                <button id="females">女女合唱</button>
-            </div>
-            <div id="list">
-                <table>
+            <div>
+                <div id="search">
+                    <p id="searchName">搜尋歌曲/歌手名稱：</p>
+                    <div id="searchLabel">
+                        <input id="inputText" type="text" size="20%" maxlength="20" required>
+                        <button id="searchBtn">搜尋</button>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/Granny's music player.html">
+                        <button id="all">全部歌曲</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/male.html">
+                        <button id="male">男歌手</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/female.html">
+                        <button id="female">女歌手</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/maleFemale.html">
+                        <button id="maleFemale">男女合唱</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/males.html">
+                        <button id="males">男男合唱</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/females.html">
+                        <button id="females">女女合唱</button>
+                    </a>
+                    <a href="https://yuhui0215.github.io/HTML/Granny's%20music%20player/adder.html">
+                        <button id="adder">點我新增歌曲</button>
+                    </a>
+                </div>
+                <div id="list">
+                    <table>
 
-                </table>
+                    </table>
+                </div>
             </div>
-            
         </div>
         
     
