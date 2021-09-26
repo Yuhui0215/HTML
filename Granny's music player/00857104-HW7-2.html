@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Local Storage</title>
+    <style type="text/CSS">
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            background-color: lightblue;
+            font-family: Perpetua;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        th {
+            text-align: center;
+            color: white;
+            background-color: darkblue;
+        }
+
+        tr.oddrow {
+            background-color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function start()
+        {
+            document.getElementById("addButton").addEventListener("click", add, false);
+            document.getElementById("removeAllButton").addEventListener("click", remove, false);
+            loadData();
+        }
+
+        function loadData() // loads previously saved searches and displays them in the page
+        {
+            var len = localStorage.length;
+            var i;
+            var temp;
+            for(i=0; i<len; i++){
+                if(localStorage.key(i).startsWith("ntou-")) {
+                    console.log(localStorage.key(i));
+                    temp = localStorage.getItem(localStorage.key(i));
+                    temp = JSON.parse(temp);
+                    document.getElementById("display").innerHTML += "<tr><td>" + temp.title + "</td><td>" + temp.name + "</td><td>" + temp.year + "</td><td><a href='>" + temp.url + "' target ='_blank'>" + temp.url + "</td></tr>";
+                }
+            }
+        }
+
+        function add()
+        {
+            var title = document.getElementById("title").value;
+            var name = document.getElementById("name").value;
+            var year = document.getElementById("year").value;
+            var link = document.getElementById("link").value;
+            //console.log(title, name, year, link);
+            if(title!='' && name!='' && year!='' && link!='') {
+                var a = new Date();
+                var obj = {};
+                obj["title"] = title;
+                obj["name"] = name;
+                obj["year"] = year;
+                obj["url"] = link;
+                var temp = JSON.stringify(obj);
+                localStorage.setItem("ntou-" + a.getTime(), temp);
+                document.getElementById("display").innerHTML += "<tr><td>" + title + "</td><td>" + name + "</td><td>" + year + "</td><td><a href='>" + link + "' target ='_blank'>" + link + "</td></tr>";
+            }
+        }
+
+        function remove()
+        {
+            document.getElementById("title").value = '';
+            document.getElementById("name").value = '';
+            document.getElementById("year").value = '';
+            document.getElementById("link").value = '';
+            document.getElementById("display").innerHTML = "";
+            var len = localStorage.length;
+            //console.log(len);
+            var i, j;
+            for(i=0, j=0; i<len; i++){
+                if(localStorage.key(j).startsWith("ntou-"))
+                    localStorage.removeItem(localStorage.key(j));
+                else
+                    j++;
+            }
+            window.alert("All items were removed!");
+        }
+        window.addEventListener('load', start, false);
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <p>
+            <label>Book Title:
+                <input id="title" type="text">
+            </label>
+            <label>Author(s):
+                <input id="name" type="text">
+            </label>
+            <label>Year:
+                <input id="year" type="number">
+            </label>
+            <label>Book URL:
+                <input id="link" type="URL">
+            </label>
+        </p>
+        <p>
+            <input type="button" value="Add New Item" id="addButton">
+            <input type="button" value="Remove All Items" id="removeAllButton">
+        </p>
+    </form>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody id="display"></tbody>
+    </table>
+</body>
+</html>
