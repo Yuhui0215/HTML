@@ -3,9 +3,7 @@
     <head>
         <meta charset="utf-8" name="viewport">
         <title>123</title>
-        <style>
-
-            
+        <style>            
         </style>
         <script>
             function readTextFile(file, callback) {
@@ -20,17 +18,23 @@
                 rawFile.send(null);
             }
 
-            function init() {
-                readTextFile("https://yuhui0215.github.io/HTML/Exercise/test/jsontest.json", function(text){
+            function init(urlStr) {
+                readTextFile(urlStr, function(text){
                     var data = JSON.parse(text);
                     console.log(data);
                 });
             }
 
-            window.addEventListener('load', init);
+            function start() {
+                var url = localStorage.getItem("json");
+                urlStr = JSON.stringify(url);
+                console.log(urlStr);
+                init(urlStr);
+            }
+
+            window.addEventListener('load', start);
         </script>
     </head>
     <body>
-
     </body>
 </html>
