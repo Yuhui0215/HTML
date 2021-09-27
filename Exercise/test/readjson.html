@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport">
+        <title>123</title>
+        <style>
+
+            
+        </style>
+        <script>
+            function readTextFile(file, callback) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.overrideMimeType("application/json");
+                rawFile.open("GET", file, true);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4 && rawFile.status == "200") {
+                        callback(rawFile.responseText);
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            function init() {
+                readTextFile("https://yuhui0215.github.io/HTML/Exercise/test/jsontest.json", function(text){
+                    var data = JSON.parse(text);
+                    console.log(data);
+                });
+            }
+
+            window.addEventListener('load', init);
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
