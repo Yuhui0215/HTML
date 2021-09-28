@@ -21,9 +21,9 @@
                 rawFile.send(null);
             }
 
-            function init(urlStr) {
-                console.log(urlStr);
-                readTextFile(urlStr, function(text){
+            function init(url) {
+                console.log(url);
+                readTextFile(url, function(text){
                     var data = JSON.parse(text);
                     console.log(data);
                 });
@@ -34,11 +34,7 @@
                 console.log(url);
                 var type0 = typeof(url);
                 console.log(type0);
-                urlStr = JSON.stringify(url);
-                console.log(urlStr);
-                var type1 = typeof(urlStr);
-                console.log(type1);
-                init(urlStr);
+                init(url);
             }
 
             window.addEventListener('load', start);
