@@ -31,10 +31,13 @@
 
             function start() {
                 var url = localStorage.getItem("json");
+                console.log(url);
+                var type0 = typeof(url);
+                console.log(type0);
                 urlStr = JSON.stringify(url);
                 console.log(urlStr);
-                var type = typeof(urlStr);
-                console.log(type);
+                var type1 = typeof(urlStr);
+                console.log(type1);
                 init(urlStr);
             }
 
