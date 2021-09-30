@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport">
+        <title></title>
+        <style>
+            html {
+                margin-top: -20px;
+            }
+            body {
+                background-color:rgb(247, 255, 138) ;
+            }
+            #name {
+               font-size: 50px;
+               font-weight: 700;
+               text-align: center;
+               margin-bottom: 10px;
+               margin-top: 40px;
+            } 
+            table {
+                margin-right: 0;
+            }
+            #option {
+                width: 20%;
+                margin-right: 20px;
+            }
+            #search {
+                margin-bottom: 40px;
+                margin-left: 20px;
+            }
+            #searchName {
+                font-size: 18px;
+                font-weight: 700;
+                margin: 0;
+            }
+            #searchLabel {
+                align-items: center;
+            }
+            #inputText {
+                width: 97%;
+                height: 40px;
+                font-size: 150%;
+            }
+            #searchBtn {
+                width: 100%;
+                height: 40px;
+                font-size: 150%;
+            }
+           
+            #buttons {
+                margin-left: 25px;
+            }
+            #all, #male, #female, #maleFemale, #males, #females, #taiwanese {
+                width: 90%;
+                height: 70px;
+                font-size: 150%;
+                font-weight: 800;
+                margin-bottom: 20px;
+            }
+            #all {
+                background-color: rgb(10, 3, 73);
+                color: white;
+            }
+            #option, #list {
+                float: left;
+            }
+            #list {
+                width: 75%;
+                margin-top: 20px;
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border: 10px solid rgba(0, 0, 0, 0);
+            }
+            th {
+                width: 50%;
+            }
+            #songName {
+                font-size: 45px;
+                margin-top: 0;
+                margin-bottom: 10px;
+            }
+            #lyrics {
+                height: 800px;
+                font-size: 40px;
+                margin-top: 30px;
+                overflow: scroll;
+                scrollbar-width: auto;
+            }
+        </style>
+        <script type="text/javascript">
+            function readTextFile(file, callback) {
+                console.log(file);
+                var rawFile = new XMLHttpRequest();
+                rawFile.overrideMimeType("application/json");
+                rawFile.open("GET", file, true);
+                console.log(file);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4 && rawFile.status == "200") {
+                        callback(rawFile.responseText);
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            function init(url) {
+                console.log(url);
+                readTextFile(url, function(text){
+                    var data = JSON.parse(text);
+                    console.log(data);
+                    console.log(data.lyrics[0]);
+                    console.log(data.lyrics[1]);
+                    console.log(data.music);
+                    console.log(data.url);
+                    //add elements
+                    //title
+                    document.title.innerHTML = data.music;
+                    //song and singer(s)
+                    //Youtube video
+                    //lyrics
+                });
+            }
+
+            function start() {
+                var url = localStorage.getItem("json");
+                console.log(url);
+                var type0 = typeof(url);
+                console.log(type0);
+                init(url);
+            }
+
+            window.addEventListener('load', start);
+        </script>
+    </head>
+    
+    <body>
+        <p id="name">阿嬤的音樂播放器</p>
+        <div id="content">
+            <div id="option">
+                <div id="search">
+                    <p id="searchName">搜尋歌曲/歌手名稱：</p>
+                    <div id="searchLabel">
+                        <input id="inputText" type="text" size="20%" maxlength="20" required>
+                        <button id="searchBtn">搜尋</button>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <a href="Granny's music player.html">
+                        <button id="all">全部歌曲</button>
+                    </a>
+                    <a href="male.html">
+                        <button id="male">男歌手</button>
+                    </a>
+                    <a href="female.html">
+                        <button id="female">女歌手</button>
+                    </a>
+                    <a href="maleFemale.html">
+                        <button id="maleFemale">男女合唱</button>
+                    </a>
+                    <a href="males.html">
+                        <button id="males">男男合唱</button>
+                    </a>
+                    <a href="females.html">
+                        <button id="females">女女合唱</button>
+                    </a>
+                    <a href="taiwanese.html">
+                        <button id="taiwanese">台語歌</button>
+                    </a>
+                    <!--
+                    <a href="adder.html">
+                        <button id="adder">新增歌曲</button>
+                    </a>
+                    -->
+                </div>
+            </div>      
+            <div id="list">
+                <p id="songName"></p>
+                <div id="video">
+                <!--
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/IxMovXodhg0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                -->
+                </div>
+                <div id="lyrics">
+                    <!--
+                    作曲：徐樂同<br>
+                    作詞：李聰<br>
+                    <br>
+                    可能廝守著某一段時光<br>
+                    明天多麼可惜都不管<br>
+                    就算總會有人<br>
+                    好奇將你打量<br>
+                    <br>
+                    原來你也該有一雙翅膀<br>
+                    像每個天真的孩子一樣<br>
+                    你是停在誰身旁<br>
+                    才讓心 有了重量<br>
+                    <br>
+                    寧願放棄自由換一點溫暖<br>
+                    誰說天荒地老算不得勇敢<br>
+                    我在你荒蕪眼中看見了海洋<br>
+                    多麼鐵石心腸<br>
+                    只是念念不忘<br>
+                    那顆淚的滾燙<br>
+                    <br>
+                    哪有生生世世看不見遺憾<br>
+                    才有人義無反顧放逐去流浪<br>
+                    心酸埋於土壤<br>
+                    過往都遺忘<br>
+                    化作一顆琥珀的模樣<br>
+                    <br>
+                    可能廝守著某一段時光<br>
+                    明天多麼可惜都不管<br>
+                    就算總會有人<br>
+                    好奇將你打量<br>
+                    <br>
+                    原來你也該有一雙翅膀<br>
+                    像每個天真的孩子一樣<br>
+                    你是停在誰身旁<br>
+                    才讓心 有了重量<br>
+                    <br>
+                    寧願放棄自由換一點溫暖<br>
+                    誰說天荒地老算不得勇敢<br>
+                    我在你荒蕪眼中看見了海洋<br>
+                    多麼鐵石心腸<br>
+                    只是念念不忘<br>
+                    那顆淚的滾燙
+                    <br>
+                    哪有生生世世看不見遺憾<br>
+                    才有人義無反顧放逐去流浪<br>
+                    心酸埋於土壤<br>
+                    過往都遺忘<br>
+                    化作一顆琥珀的模樣<br><br>
+                    -->
+                </div>           
+            </div>
+    </body>
+</html>
