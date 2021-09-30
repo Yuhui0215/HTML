@@ -117,8 +117,12 @@
                     //title
                     document.title.innerHTML = data.music;
                     //song and singer(s)
+                    document.getElementById("songName").innerHTML = data.music;
                     //Youtube video
+                    document.getElementById("video").innerHTML += data.url;
                     //lyrics
+                    document.getElementById("lyrics").innerHTML += data.lyrics[0];
+                    document.getElementById("lyrics").innerHTML += data.lyrics[1];
                 });
             }
 
