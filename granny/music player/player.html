@@ -119,7 +119,7 @@
                     //song and singer(s)
                     document.getElementById("songName").innerHTML = data.music;
                     //Youtube video
-                    document.getElementById("video").innerHTML += '<iframe width="560" height="315" src=' + data.url + 'title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                    document.getElementById("video").innerHTML += '<iframe width="560" height="315" src="' + data.url + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                     //lyrics
                     document.getElementById("lyrics").innerHTML += data.lyrics[0];
                     document.getElementById("lyrics").innerHTML += data.lyrics[1];
