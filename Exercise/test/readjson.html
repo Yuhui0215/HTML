@@ -26,6 +26,10 @@
                 readTextFile(url, function(text){
                     var data = JSON.parse(text);
                     console.log(data);
+                    
+                    console.log(data.lyrics[0]);
+                    console.log(data.music);
+                    console.log(data.url);
                 });
             }
 
